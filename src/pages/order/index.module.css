@@ -1,0 +1,12 @@
+
+
+.card p {
+    text-align: justify;
+    opacity: 0.5;
+}
+
+.card {
+    width: 100%;
+    text-align: start;
+    flex-grow: 1;
+}
