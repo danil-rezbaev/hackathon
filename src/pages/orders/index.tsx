@@ -18,19 +18,10 @@ function Orders() {
     
 
   return (
-    <>
-
-        {/* <Layout >
-            <Header className={css.header}>
-
-                 
-            </Header>
-            
-
-        </Layout> */}
+    <div style={{padding: '32px 32px'}}>
         
         <Row >
-            <Col span={16} style={{display: 'flex', justifyContent: 'space-between', width: '85%', alignItems: 'center'}}>
+            <Col span={16} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Title>
                     Все заказы
                 </Title>
@@ -118,7 +109,7 @@ function Orders() {
             </Col>
         </Row>
 
-    </>
+    </div>
   )
 }
 
