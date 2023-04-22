@@ -13,26 +13,31 @@ import { MenuProps, Space, Typography } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import Button from 'antd/lib/button';
 import logo from './images/companyLogo.svg';
+import { Link } from 'react-router-dom';
 
 const { Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps['items'] = [
-  {icon: HomeOutlined, label: 'Все заказы'},
-  {icon: UnorderedListOutlined, label: 'Отклики'},
-  {icon: ClockCircleOutlined, label: 'В работе'},
-  {icon: CheckCircleOutlined, label: 'Выполненные заказы'},
+  {icon: HomeOutlined, label: 'Все заказы', link: '/orders'},
+  {icon: UnorderedListOutlined, label: 'Отклики', link: '/companyProfile'},
+  {icon: ClockCircleOutlined, label: 'В работе', link: '/companyProfile'},
+  {icon: CheckCircleOutlined, label: 'Выполненные заказы', link: '/companyProfile'},
 ].map((item, index) => ({
   key: String(index + 1),
   icon: React.createElement(item.icon),
-  label: item.label,
+  label: (
+    <Link to={item.link}>
+      {item.label}
+    </Link>
+  )
 }));
 
 export type InterfaceProps = {
   children: ReactNode
 }
 
-const Interface: FC<InterfaceProps> = (props) => {
+const AppInterface: FC<InterfaceProps> = (props) => {
   const {
     children
   } = props
@@ -102,4 +107,4 @@ const Interface: FC<InterfaceProps> = (props) => {
   );
 };
 
-export default Interface;
+export default AppInterface;
