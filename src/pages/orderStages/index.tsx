@@ -1,8 +1,9 @@
 import { Steps } from 'antd'
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { DocumentsSigningWrapper } from './components/documentsSigningWrapper'
 import DocumentsSigningContent from './components/documentsSigningContent'
 import css from './index.module.css'
+import JobControl from './components/jobControl'
 
 function OrderStages() {
 
@@ -23,16 +24,17 @@ function OrderStages() {
     const steps = [
         {
             title: 'Подписание док-ов',
-            content: [<DocumentsSigningWrapper
-                 children={<DocumentsSigningContent 
-                    downloadTitle='Скачайте следующие файлы и проверьте корректность данных:'
-                    files={[]}
-                    commentAvailable
-                    steps={documentsAgreementSteps}
-                    nextStep={setCurrentContent}
+            content: [
+                <DocumentsSigningWrapper
+                    children={<DocumentsSigningContent 
+                        downloadTitle='Скачайте следующие файлы и проверьте корректность данных:'
+                        files={[]}
+                        commentAvailable
+                        steps={documentsAgreementSteps}
+                        nextStep={setCurrentContent}
                     />} 
-                 term='21.01.2021'
-                 title='Согласование документов'
+                    term='21.01.2021'
+                    title='Согласование документов'
                  />,
                 <DocumentsSigningWrapper
                     term='21.01.2021'
@@ -43,15 +45,44 @@ function OrderStages() {
                             downloadTitle='Скачайте следующие файлы, подпишите и загрузите в поле ниже'
                             files={[]}
                             steps={documentsSigningSteps}
+                            nextStep={setCurrentContent}
+                        />
+                    }
+                />,
+                <DocumentsSigningWrapper
+                    term='21.01.2021'
+                    title='Проверка документов заказчиком'
+                    isTermDead={false}
+                    children={
+                        <DocumentsSigningContent
+                            downloadTitle='Прикрипленные вами файлы'
+                            files={[]}
                             nextStep={setCurrentStep}
                         />
                     }
-                />
+                />,
             ],
         },
         {
             title: 'Выполнение работ',
-            content: '',
+            content: [
+                <DocumentsSigningWrapper
+                    title='Скачайте журнал входного и общего контроля работ для заполнения'
+                    children={
+                        <DocumentsSigningContent
+                            downloadTitle='Скачайте следующие файлы'
+                            files={[]}
+                            nextStep={setCurrentContent}
+                        />
+                    }
+
+                />,
+                <DocumentsSigningWrapper
+                    title='Учет выполнения работ'
+                >
+                    <JobControl/>
+                </DocumentsSigningWrapper>
+            ],
         },
         {
             title: 'Лаб. испытания',
@@ -65,10 +96,14 @@ function OrderStages() {
 
     const stepsItems = steps.map((item) => ({key: item.title, title: item.title}))
 
+    useEffect(() => {
+        setCurrentContent(0);
+    }, [currentStep])
+
     
   return (
     <div style={{padding: '0px 32px 0px 32px'}}>
-        <Steps className={css.steps} items={stepsItems}></Steps>
+        <Steps current={currentStep} className={css.steps} items={stepsItems}></Steps>
         <div>{steps[currentStep].content[currentContent]}</div>
     </div>
   )

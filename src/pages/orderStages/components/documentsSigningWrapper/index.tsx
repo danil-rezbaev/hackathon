@@ -6,17 +6,21 @@ import Paragraph from 'antd/es/typography/Paragraph'
 interface DocumentsSigningWrapperProps {
     children: ReactNode,
     title: string,
-    term: string
+    term?: string,
+    isTermDead?: boolean,
 }
 
-export const DocumentsSigningWrapper: FC<DocumentsSigningWrapperProps> = ({children, title, term}) => {
+export const DocumentsSigningWrapper: FC<DocumentsSigningWrapperProps> = ({children, title, term, isTermDead = true}) => {
   return (
     <div className={css.wrapper}>
         
         <div className={css.wrapperHeader}>
             <h1>{title}</h1>
-            <div className={css.termBadge}>
-                Скачайте до {term}
+            <div className={isTermDead ? css.termBadgeRed : css.termBadgeBlue}>
+                {term && ( isTermDead 
+                ? `Скачайте до ${term}`
+                : `Будет готово до ${term}`)
+            }
             </div>
         </div>
 

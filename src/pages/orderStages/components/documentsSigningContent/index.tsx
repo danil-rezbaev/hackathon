@@ -4,7 +4,7 @@ import React, {FC} from 'react'
 import css from './index.module.css'
 
 interface DocumentsSigningContentProps {
-  steps: string[],
+  steps?: string[],
   downloadTitle: string,
   files: any[],
   commentAvailable?: boolean,
@@ -24,7 +24,7 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
     <div>
       
         <ul className={css.list}>
-          {steps.map(item => (
+          {steps?.map(item => (
             <li>{item}</li>
           ))}
         </ul>
@@ -40,7 +40,7 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
         {commentAvailable && <TextArea style={{marginBottom: 8}} placeholder='Комментарий к документам' rows={4}></TextArea>}
 
 
-        <div style={{display: 'flex',justifyContent: 'flex-end'}}>
+        <div style={{display: 'flex',justifyContent: 'flex-end', flexGrow: 0}}>
           <Button onClick={() => nextStep((prev: number) => prev + 1)}  type='primary'>Следующий этап</Button>
 
         </div>
