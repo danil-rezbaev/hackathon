@@ -1,7 +1,10 @@
 import { Table } from 'antd'
 import React from 'react'
+import { useAppSelector } from '../../../../hooks/redux'
 
 const JobControlHistory = () => {
+
+    const history = useAppSelector(state => state.jobsHistory)
 
     const columns = [
         {
@@ -22,42 +25,48 @@ const JobControlHistory = () => {
     ]
 
     const data = [
-        {
-            key: '1',
-            jobName: 'Монтаж Г-образной опоры',
-            completionDate: '30.04.2023',
-            unitValue: 102
-        },
-        {
-            key: '2',
-            jobName: 'Монтаж Г-образной опоры',
-            completionDate: '30.04.2023',
-            unitValue: 102
-        },
-        {
-            key: '3',
-            jobName: 'Монтаж Г-образной опоры',
-            completionDate: '30.04.2023',
-            unitValue: 102
-        },
-        {
-            key: '4',
-            jobName: 'Монтаж Г-образной опоры',
-            completionDate: '30.04.2023',
-            unitValue: 102
-        },
-        {
-            key: '5',
-            jobName: 'Монтаж Г-образной опоры',
-            completionDate: '30.04.2023',
-            unitValue: 102
-        },
-        {
-            key: '6',
-            jobName: 'Монтаж Г-образной опоры',
-            completionDate: '30.04.2023',
-            unitValue: 102
-        },
+        ...history.entries.map((entry, index) => ({
+            key: index.toString(),
+            jobName: entry.job.title,
+            completionDate: entry.date,
+            unitValue: entry.quanity,
+        }))
+        // {
+        //     key: '1',
+        //     jobName: 'Монтаж Г-образной опоры',
+        //     completionDate: '30.04.2023',
+        //     unitValue: 102
+        // },
+        // {
+        //     key: '2',
+        //     jobName: 'Монтаж Г-образной опоры',
+        //     completionDate: '30.04.2023',
+        //     unitValue: 102
+        // },
+        // {
+        //     key: '3',
+        //     jobName: 'Монтаж Г-образной опоры',
+        //     completionDate: '30.04.2023',
+        //     unitValue: 102
+        // },
+        // {
+        //     key: '4',
+        //     jobName: 'Монтаж Г-образной опоры',
+        //     completionDate: '30.04.2023',
+        //     unitValue: 102
+        // },
+        // {
+        //     key: '5',
+        //     jobName: 'Монтаж Г-образной опоры',
+        //     completionDate: '30.04.2023',
+        //     unitValue: 102
+        // },
+        // {
+        //     key: '6',
+        //     jobName: 'Монтаж Г-образной опоры',
+        //     completionDate: '30.04.2023',
+        //     unitValue: 102
+        // },
     ]
 
   return (

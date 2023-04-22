@@ -16,7 +16,7 @@ const InstallationProgress: FC<InstallationProgressProps> = ({title, maxQuantity
   
     return (
     <div className={css.progress}>
-        <h5>{title}</h5>
+        <h5 className={css.jobTitle}>{title}</h5>
         <Slider
             style={{width: '30%'}}
             min={0}
