@@ -1,0 +1,25 @@
+
+
+.card p {
+    text-align: justify;
+    opacity: 0.5;
+}
+
+.card {
+    width: 100%;
+    text-align: start;
+    flex-grow: 1;
+    margin-bottom: 12px;
+}
+
+.header {
+    padding: 4;
+    display: flex;
+    justify-content: space-between;
+    direction: row;
+    align-items: center;
+}
+
+.ant-input-number {
+    width: 40%;
+}

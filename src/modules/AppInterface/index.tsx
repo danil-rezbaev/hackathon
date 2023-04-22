@@ -2,34 +2,30 @@ import React, { FC, ReactNode, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  AppstoreOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  QuestionCircleOutlined,
+  BellOutlined,
+  HomeOutlined,
+  UnorderedListOutlined,
+  ClockCircleOutlined,
+  CheckCircleOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+import { MenuProps, Space, Typography } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import Button from 'antd/lib/button';
+import logo from './images/companyLogo.svg';
 
+const { Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps['items'] = [
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-].map((icon, index) => ({
+  {icon: HomeOutlined, label: 'Все заказы'},
+  {icon: UnorderedListOutlined, label: 'Отклики'},
+  {icon: ClockCircleOutlined, label: 'В работе'},
+  {icon: CheckCircleOutlined, label: 'Выполненные заказы'},
+].map((item, index) => ({
   key: String(index + 1),
-  icon: React.createElement(icon),
-  label: `nav ${index + 1}`,
+  icon: React.createElement(item.icon),
+  label: item.label,
 }));
 
 export type InterfaceProps = {
@@ -42,47 +38,58 @@ const Interface: FC<InterfaceProps> = (props) => {
   } = props
 
   const [collapsed, setCollapsed] = useState(false);
-  const contentMargin = collapsed ? 0 : "200px"
+  const contentMargin = collapsed ? '0' : "0"
+  const buttonWidth = collapsed ? 64 : 64
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   return (
-    <Layout hasSider>
+    <Layout >
       <Sider
         trigger={null}
         collapsible
         collapsed={collapsed}
         style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
+          minWidth: '250px',
+          maxWidth: '250px',
         }}
       >
         <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']} items={items} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
       </Sider>
 
       <Layout className="site-layout" style={{ marginLeft: contentMargin, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-        <Header style={{ padding: 0, background: colorBgContainer, flexGrow: 0, textAlign: 'left' }}>
-          <Button
+          
+        <Header style={{ padding: 0, background: colorBgContainer, flexGrow: 0, textAlign: 'left', alignItems: 'cneter', display: 'flex' }}>
+          
+           <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined color="white" /> : <MenuFoldOutlined color="white" />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
               fontSize: '16px',
-              width: 64,
+              width: buttonWidth,
               height: 64,
             }}
           />
+          <div style={{flexGrow: '1', alignItems: 'center', display: 'flex'}}>
+            <img src={logo}></img>
+            
+          </div>    
+
+          <Space direction='horizontal' style={{alignItems: 'center', display: 'flex', marginRight: 24}}>
+
+            <QuestionCircleOutlined />
+            <BellOutlined />
+            <Title level={5} style={{margin: 'auto'}}>John Browne</Title>
+          </Space>
+
         </Header>
 
-        <Content style={{ margin: '24px 16px 0', overflow: 'initial', flexGrow: 1, height: '100%' }}>
-          <div style={{ padding: 24, textAlign: 'center', background: colorBgContainer, height: '100%' }}>
+        <Content style={{ margin: '0', overflow: 'initial', flexGrow: 1, height: '100%' }}>
+          <div style={{ padding: '0 32px 32px 32px', textAlign: 'center', background: '#f5f5f5', height: '100%' }}>
             {children}
           </div>
         </Content>

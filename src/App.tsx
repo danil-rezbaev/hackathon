@@ -6,6 +6,7 @@ import Error from "./components/Error"
 import Auth from "./pages/auth";
 import { App as NotificationWrapper } from "antd"
 import { useAppSelector } from "./hooks/redux";
+import Orders from './pages/orders';
 
 function App() {
   const { auth } = useAppSelector(store => store)
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Main/>} />
           <Route path='/auth' element={<Auth/>} />
+           <Route path='/order' element={<Orders/>} />
           <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
         </Routes>
       </NotificationWrapper>
