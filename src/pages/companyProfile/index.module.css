@@ -1,0 +1,38 @@
+
+
+.header {
+    background-color: white;
+    padding: 0px 24px 16px 24px;
+    
+}
+
+.headerRow {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.companyCard {
+    background-color: white;
+    margin: 16px;
+    padding: 16px;
+    text-align: start;
+    width: fit-content;
+}
+
+.paragraphOpacity:nth-child(2n) {
+    opacity: 0.5;
+}
+
+.directorName {
+    font-weight: 600;
+    color: #096dd9;
+    font-size: 16;
+}
+
+.companyStatus {
+    color: #52c41a;
+}
+
+.directorsTypography * {
+    margin: 0;
+}

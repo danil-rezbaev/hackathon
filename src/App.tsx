@@ -35,7 +35,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Main/>} />
             <Route path='/auth' element={<Auth/>} />
-            <Route path='/order' element={<Orders/>} />
+            <Route path='/orders' element={<Orders/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
             <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
           </Routes>

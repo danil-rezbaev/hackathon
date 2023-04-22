@@ -102,13 +102,13 @@ const AppInterface: FC<InterfaceProps> = (props) => {
         </Header>
 
         <Content style={{ margin: '0', overflow: 'initial', flexGrow: 1, height: '100%' }}>
-          <div style={{ padding: '0 32px 32px 32px', textAlign: 'center', background: '#f5f5f5', height: '100%' }}>
+          <div style={{ padding: '0', textAlign: 'center', background: '#f5f5f5', height: '100%' }}>
             {children}
           </div>
         </Content>
 
         <Footer style={{ textAlign: 'center', flexGrow: 0 }}>
-          Ant Design ©2023 Created by Ant UED
+        © 2023 СКЗМК, Все права защищены.
         </Footer>
       </Layout>
     </Layout>
