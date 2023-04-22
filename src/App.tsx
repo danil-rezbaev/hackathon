@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Main from "./pages/main";
-import Error from "./components/Error"
 import Auth from "./pages/auth";
 import { App as NotificationWrapper } from "antd"
 import { useAppSelector } from "./hooks/redux";
 import Orders from './pages/orders';
 import CompanyProfile from './pages/companyProfile';
 import AppInterface from './modules/AppInterface';
+import NotFound from "./pages/notFound";
 import Responses from "./pages/responses";
 import OrderStages from './pages/orderStages';
 
@@ -41,7 +41,7 @@ function App() {
             <Route path='/responses' element={<Responses/>} />
             <Route path='/orderStages' element={<OrderStages/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
-            <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
+            <Route path='*' element={<NotFound/>} />
           </Routes>
         </NotificationWrapper>
       </AppInterface>
