@@ -10,6 +10,7 @@ import CompanyProfile from './pages/companyProfile';
 import AppInterface from './modules/AppInterface';
 import NotFound from "./pages/notFound";
 import Responses from "./pages/responses";
+import OrderStages from './pages/orderStages';
 
 function App() {
   const { auth } = useAppSelector(store => store)
@@ -38,6 +39,7 @@ function App() {
             <Route path='/auth' element={<Auth/>} />
             <Route path='/orders' element={<Orders/>} />
             <Route path='/responses' element={<Responses/>} />
+            <Route path='/orderStages' element={<OrderStages/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
             <Route path='*' element={<NotFound/>} />
           </Routes>
