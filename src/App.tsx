@@ -17,13 +17,13 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if(!auth.status) {
-      if(location !== 'login' && location !== 'signup') {
-        navigate('/auth')
+    if(auth.status) {
+      if(location === 'auth') {
+        navigate('/')
       }
     } else {
-      if(location !== 'login' && location !== 'signup') {
-        navigate('/')
+      if(location !== 'auth') {
+        navigate('/auth')
       }
     }
   }, [auth, location])
