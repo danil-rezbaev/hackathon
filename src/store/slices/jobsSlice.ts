@@ -33,7 +33,12 @@ const jobsSlice = createSlice({
     initialState,
     reducers: {
         addQuantity(state, action: PayloadAction<number[]>) {
-            state.jobs[action.payload[0]].currentQuantity += action.payload[1]; 
+            const [index, quantity] = action.payload
+
+            state.jobs[index].currentQuantity += quantity; 
+            if (state.jobs[index].currentQuantity > state.jobs[index].maxQuantity) {
+                state.jobs[index].currentQuantity = state.jobs[index].maxQuantity
+            }
             console.log(state.jobs);
         }
     }
