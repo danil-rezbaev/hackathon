@@ -1,15 +1,14 @@
 import React, { FC, ReactNode, useState } from 'react';
 import {
+  BellOutlined,
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+  HomeOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  BellOutlined,
-  HomeOutlined,
   UnorderedListOutlined,
-  ClockCircleOutlined,
-  CheckCircleOutlined,
 } from '@ant-design/icons';
-import { MenuProps, Space } from 'antd';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, MenuProps, Space, theme } from 'antd';
 import Button from 'antd/lib/button';
 import { ReactComponent as FullLogo } from './images/fullLogo.svg';
 import { ReactComponent as CollapsedLogo } from './images/collapsedLogo.svg';
@@ -28,7 +27,7 @@ const items: MenuProps['items'] = [
   key: String(index + 1),
   icon: React.createElement(item.icon),
   label: (
-    <Link to={item.link}>
+    <Link to={item.link} style={{textAlign: "left"}}>
       {item.label}
     </Link>
   )
@@ -72,7 +71,7 @@ const AppInterface: FC<InterfaceProps> = (props) => {
           {collapsed ? <CollapsedLogo/> : <FullLogo/>}
         </div>
 
-        <CompanyCard name="ООО Перспектива" collapsed={collapsed} />
+        <CompanyCard collapsed={collapsed} />
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{marginTop: '25px'}} />
       </Sider>
 

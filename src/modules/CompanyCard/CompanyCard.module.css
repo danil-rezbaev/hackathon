@@ -3,12 +3,13 @@
     grid-template-columns: 32px 1fr;
     grid-gap: 7.5px;
     text-align: left;
-    padding: 5px;
+    padding: 5px 10px;
     height: auto;
     align-items: center;
-    margin: auto;
+    width: 100%;
 }
 
-.root-block {
+.rootBlock {
     display: block !important;
+    text-align: center;
 }

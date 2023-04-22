@@ -1,3 +1,6 @@
+import { Company } from "./Company";
+
 export type User = {
-  token: string,
+  email: string | null,
+  company: Company | null
 }

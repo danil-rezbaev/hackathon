@@ -4,17 +4,18 @@ import Text from "antd/lib/typography/Text";
 import styles from "./CompanyCard.module.css"
 import cs from 'classnames'
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../hooks/redux";
 
 export type CompanyCardProps = {
-  name: string,
   collapsed: boolean
 }
 
 const CompanyCard: FC<CompanyCardProps> = (props) => {
   const {
-    name,
     collapsed
   } = props
+
+  const { company } = useAppSelector(store => store.user)
 
   const navigate = useNavigate()
 
@@ -29,13 +30,17 @@ const CompanyCard: FC<CompanyCardProps> = (props) => {
           backgroundColor: '#f56a00'
         }}
       >
-        П
+        { company
+            ? company?.title.charAt(1)
+            : "?" }
       </Avatar>
 
       {
         !collapsed ? (
           <div>
-            <Text style={{margin: 'auto', display: 'block', color: "white"}} strong>{name}</Text>
+            <Text style={{margin: 'auto', display: 'block', color: "white"}} strong>
+              {company?.title ?? "Аноним"}
+            </Text>
             <Text style={{margin: 'auto', color: "white"}}>Исполнитель</Text>
           </div>
         ) : null
