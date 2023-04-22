@@ -12,8 +12,10 @@ import {
 import { MenuProps, Space, Typography } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import Button from 'antd/lib/button';
-import logo from './images/companyLogo.svg';
+import { ReactComponent as FullLogo } from './images/fullLogo.svg';
+import { ReactComponent as CollapsedLogo } from './images/collapsedLogo.svg';
 import { Link } from 'react-router-dom';
+import UserCard from "../UserCard";
 
 const { Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
@@ -67,15 +69,18 @@ const AppInterface: FC<InterfaceProps> = (props) => {
           maxWidth: '250px',
         }}
       >
-        <div style={{ height: 32, margin: 16, background: 'rgba(255, 255, 255, 0.2)' }} />
+        <div style={{padding: '5px'}}>
+          {collapsed ? <CollapsedLogo/> : <FullLogo/>}
+        </div>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
       </Sider>
 
       <Layout className="site-layout" style={{ marginLeft: contentMargin, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
 
-        <Header style={{ padding: 0, background: colorBgContainer, flexGrow: 0, textAlign: 'left', alignItems: 'cneter', display: 'flex' }}>
-
-           <Button
+        <Header
+          style={{ padding: '0 5px', background: colorBgContainer, flexGrow: 0, textAlign: 'left', display: 'flex', justifyContent: "space-between" }}
+        >
+          <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined color="white" /> : <MenuFoldOutlined color="white" />}
             onClick={() => setCollapsed(!collapsed)}
@@ -85,16 +90,13 @@ const AppInterface: FC<InterfaceProps> = (props) => {
               height: 64,
             }}
           />
-          <div style={{flexGrow: '1', alignItems: 'center', display: 'flex'}}>
-            <img src={logo}></img>
 
-          </div>
-
-          <Space direction='horizontal' style={{alignItems: 'center', display: 'flex', marginRight: 24}}>
-
+          <Space
+            direction='horizontal'
+          >
             <QuestionCircleOutlined />
             <BellOutlined />
-            <Title level={5} style={{margin: 'auto'}}>John Browne</Title>
+            <UserCard name="Danya"/>
           </Space>
 
         </Header>
