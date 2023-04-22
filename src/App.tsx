@@ -7,6 +7,9 @@ import Auth from "./pages/auth";
 import { App as NotificationWrapper } from "antd"
 import { useAppSelector } from "./hooks/redux";
 import Orders from './pages/orders';
+import CompanyProfile from './pages/companyProfile';
+import AppInterface from './modules/AppInterface';
+
 
 function App() {
   const { auth } = useAppSelector(store => store)
@@ -24,14 +27,17 @@ function App() {
 
   return (
     <div className="App">
-      <NotificationWrapper>
-        <Routes>
-          <Route path='/' element={<Main/>} />
-          <Route path='/auth' element={<Auth/>} />
-           <Route path='/order' element={<Orders/>} />
-          <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
-        </Routes>
-      </NotificationWrapper>
+      <AppInterface>
+        <NotificationWrapper>
+          <Routes>
+            <Route path='/' element={<Main/>} />
+            <Route path='/auth' element={<Auth/>} />
+             <Route path='/order' element={<Orders/>} />
+            <Route path='/companyProfile' element={<CompanyProfile/>} />
+            <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
+          </Routes>
+        </NotificationWrapper>
+      </AppInterface>
     </div>
   );
 }
