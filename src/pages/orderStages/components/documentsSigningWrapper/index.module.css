@@ -1,0 +1,25 @@
+
+
+.wrapperHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.termBadge {
+    border-radius: 12px;
+    background-color: #FF4d4f;
+    color: white;
+    width: 175px;
+}
+
+.wrapper {
+    background-color: white;
+    padding: 16px 32px 16px 32px;
+
+}
+
+.wrapper h1 {
+    font-size: 46px;
+    margin: 0;
+}
