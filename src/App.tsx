@@ -10,7 +10,6 @@ import Orders from './pages/orders';
 import CompanyProfile from './pages/companyProfile';
 import AppInterface from './modules/AppInterface';
 
-
 function App() {
   const { auth } = useAppSelector(store => store)
   const {pathname} = useLocation()
@@ -22,17 +21,21 @@ function App() {
       if(location !== 'login' && location !== 'signup') {
         navigate('/auth')
       }
+    } else {
+      if(location !== 'login' && location !== 'signup') {
+        navigate('/')
+      }
     }
-  }, [auth])
+  }, [auth, location])
 
   return (
     <div className="App">
-      <AppInterface>
+      <AppInterface status={auth.status}>
         <NotificationWrapper>
           <Routes>
             <Route path='/' element={<Main/>} />
             <Route path='/auth' element={<Auth/>} />
-             <Route path='/order' element={<Orders/>} />
+            <Route path='/order' element={<Orders/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
             <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
           </Routes>

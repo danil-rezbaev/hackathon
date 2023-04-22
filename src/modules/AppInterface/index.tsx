@@ -34,11 +34,13 @@ const items: MenuProps['items'] = [
 }));
 
 export type InterfaceProps = {
+  status: boolean,
   children: ReactNode
 }
 
 const AppInterface: FC<InterfaceProps> = (props) => {
   const {
+    status,
     children
   } = props
 
@@ -49,6 +51,10 @@ const AppInterface: FC<InterfaceProps> = (props) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  if(!status) {
+    return <>{children}</>
+  }
 
   return (
     <Layout >
@@ -66,9 +72,9 @@ const AppInterface: FC<InterfaceProps> = (props) => {
       </Sider>
 
       <Layout className="site-layout" style={{ marginLeft: contentMargin, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-          
+
         <Header style={{ padding: 0, background: colorBgContainer, flexGrow: 0, textAlign: 'left', alignItems: 'cneter', display: 'flex' }}>
-          
+
            <Button
             type="text"
             icon={collapsed ? <MenuUnfoldOutlined color="white" /> : <MenuFoldOutlined color="white" />}
@@ -81,8 +87,8 @@ const AppInterface: FC<InterfaceProps> = (props) => {
           />
           <div style={{flexGrow: '1', alignItems: 'center', display: 'flex'}}>
             <img src={logo}></img>
-            
-          </div>    
+
+          </div>
 
           <Space direction='horizontal' style={{alignItems: 'center', display: 'flex', marginRight: 24}}>
 
