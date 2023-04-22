@@ -3,12 +3,14 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom'
 import Main from "./pages/main";
 import Error from "./components/Error"
+import Orders from './pages/orders';
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path='/' element={<Main/>} />
+        <Route path='/order' element={<Orders/>} />
         <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
       </Routes>
     </div>
