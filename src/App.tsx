@@ -10,7 +10,6 @@ import Orders from './pages/orders';
 import CompanyProfile from './pages/companyProfile';
 import AppInterface from './modules/AppInterface';
 
-
 function App() {
   const { auth } = useAppSelector(store => store)
   const {pathname} = useLocation()
@@ -18,21 +17,25 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if(!auth.status) {
-      if(location !== 'login' && location !== 'signup') {
+    if(auth.status) {
+      if(location === 'auth') {
+        navigate('/')
+      }
+    } else {
+      if(location !== 'auth') {
         navigate('/auth')
       }
     }
-  }, [auth])
+  }, [auth, location])
 
   return (
     <div className="App">
-      <AppInterface>
+      <AppInterface status={auth.status}>
         <NotificationWrapper>
           <Routes>
             <Route path='/' element={<Main/>} />
             <Route path='/auth' element={<Auth/>} />
-             <Route path='/orders' element={<Orders/>} />
+            <Route path='/orders' element={<Orders/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
             <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
           </Routes>

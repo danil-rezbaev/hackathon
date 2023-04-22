@@ -13,8 +13,8 @@ export type Auth = {
 }
 
 const initialState: Auth = {
-  status: false,
-  token: null
+  status: true,
+  token: "null"
 }
 
 const authSlice = createSlice({
