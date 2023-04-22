@@ -2,27 +2,26 @@ import React, { FC, ReactNode, useState } from 'react';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  QuestionCircleOutlined,
   BellOutlined,
   HomeOutlined,
   UnorderedListOutlined,
   ClockCircleOutlined,
   CheckCircleOutlined,
 } from '@ant-design/icons';
-import { MenuProps, Space, Typography } from 'antd';
+import { MenuProps, Space } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import Button from 'antd/lib/button';
 import { ReactComponent as FullLogo } from './images/fullLogo.svg';
 import { ReactComponent as CollapsedLogo } from './images/collapsedLogo.svg';
 import { Link } from 'react-router-dom';
 import UserCard from "../UserCard";
+import CompanyCard from "../CompanyCard";
 
-const { Title } = Typography;
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps['items'] = [
   {icon: HomeOutlined, label: 'Все заказы', link: '/orders'},
-  {icon: UnorderedListOutlined, label: 'Отклики', link: '/companyProfile'},
+  {icon: UnorderedListOutlined, label: 'Отклики', link: '/responses'},
   {icon: ClockCircleOutlined, label: 'В работе', link: '/companyProfile'},
   {icon: CheckCircleOutlined, label: 'Выполненные заказы', link: '/companyProfile'},
 ].map((item, index) => ({
@@ -72,11 +71,12 @@ const AppInterface: FC<InterfaceProps> = (props) => {
         <div style={{padding: '5px'}}>
           {collapsed ? <CollapsedLogo/> : <FullLogo/>}
         </div>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
+
+        <CompanyCard name="ООО Перспектива" collapsed={collapsed} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{marginTop: '25px'}} />
       </Sider>
 
       <Layout className="site-layout" style={{ marginLeft: contentMargin, display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-
         <Header
           style={{ padding: '0 5px', background: colorBgContainer, flexGrow: 0, textAlign: 'left', display: 'flex', justifyContent: "space-between" }}
         >
@@ -93,12 +93,21 @@ const AppInterface: FC<InterfaceProps> = (props) => {
 
           <Space
             direction='horizontal'
+            style={{
+              marginRight: 20
+            }}
           >
-            <QuestionCircleOutlined />
-            <BellOutlined />
+            <Button
+              type="text"
+              icon={<BellOutlined/>}
+              style={{
+                fontSize: '16px',
+                width: 48,
+                height: 48,
+              }}
+            />
             <UserCard name="Danya"/>
           </Space>
-
         </Header>
 
         <Content style={{ margin: '0', overflow: 'initial', flexGrow: 1, height: '100%' }}>
@@ -108,7 +117,7 @@ const AppInterface: FC<InterfaceProps> = (props) => {
         </Content>
 
         <Footer style={{ textAlign: 'center', flexGrow: 0 }}>
-        © 2023 СКЗМК, Все права защищены.
+          © 2023 СКЗМК, Все права защищены.
         </Footer>
       </Layout>
     </Layout>

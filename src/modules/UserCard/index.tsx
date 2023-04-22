@@ -8,10 +8,22 @@ export type UserCardProps = {
 }
 
 const UserCard: FC<UserCardProps> = (props) => {
+  const {
+    name
+  } = props
+
   return (
-    <Button type="text" className={styles.root}>
+    <Button
+      type="text"
+      className={styles.root}
+      style={{
+        padding: "5px",
+        height: "auto",
+        alignContent: 'center'
+      }}
+    >
       <Avatar/>
-      <Title level={5} style={{margin: 'auto'}}>John Browne</Title>
+      <Title level={5} style={{margin: 'auto'}}>{name}</Title>
     </Button>
   );
 };

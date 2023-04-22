@@ -6,11 +6,10 @@ import css from './index.module.css'
 import Paragraph from 'antd/es/typography/Paragraph'
 
 function CompanyProfile() {
-
   const [company, setCompany] = useState({
-    fullName: 'Публичное акционерное общество', 
-    name: 'Перспектива', 
-    desc: 'Что-то делает',
+    fullName: 'Публичное акционерное общество',
+    name: 'Перспектива',
+    desc: 'Субподрядчик',
     status: 'Действующая компания',
     ogrn: '1027777708012',
     ogrnDate: '2 августа 2002 г.',
@@ -27,29 +26,25 @@ function CompanyProfile() {
   });
 
   return (
-    <>
+    <div>
       <div className={css.header}>
-          
           <Row >
               <Col span={24} className={css.headerRow}>
-                  <Title level={4}>Страница компании</Title>
-                  
+                  <Title level={4} style={{margin: 0}}>Страница компании</Title>
               </Col>
           </Row>
-          <Row>
-            <Col span={2} className={css.headerRow}>
-              
-              <img  src={logo}></img>
-
-            </Col>
-            <Col style={{justifyContent: 'space-evenly', display: 'flex', flexDirection: 'column'}}>
-              <Title level={4} style={{margin: 0}}>
-                {company.name}
-              </Title>
-              <Paragraph  style={{margin: 0}}>
-                {company.desc}
-              </Paragraph>
-            </Col>
+          <Row style={{marginTop: '15px'}}>
+            <div className={css.companyInfo}>
+              <img src={logo} alt=""/>
+              <div>
+                <Title level={4} style={{margin: 0}}>
+                  {company.name}
+                </Title>
+                <Paragraph  style={{margin: 0}}>
+                  {company.desc}
+                </Paragraph>
+              </div>
+            </div>
           </Row>
       </div>
 
@@ -128,11 +123,11 @@ function CompanyProfile() {
                 {`с ${company.directors.date}`}
               </Paragraph>
             </Typography>
-            
+
           </Col>
         </Row>
       </div>
-    </>
+    </div>
 
   )
 }

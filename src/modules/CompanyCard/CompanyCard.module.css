@@ -1,0 +1,14 @@
+.root {
+    display: grid;
+    grid-template-columns: 32px 1fr;
+    grid-gap: 7.5px;
+    text-align: left;
+    padding: 5px;
+    height: auto;
+    align-items: center;
+    margin: auto;
+}
+
+.root-block {
+    display: block !important;
+}

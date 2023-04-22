@@ -9,6 +9,7 @@ import { useAppSelector } from "./hooks/redux";
 import Orders from './pages/orders';
 import CompanyProfile from './pages/companyProfile';
 import AppInterface from './modules/AppInterface';
+import Responses from "./pages/responses";
 
 function App() {
   const { auth } = useAppSelector(store => store)
@@ -36,6 +37,7 @@ function App() {
             <Route path='/' element={<Main/>} />
             <Route path='/auth' element={<Auth/>} />
             <Route path='/orders' element={<Orders/>} />
+            <Route path='/responses' element={<Responses/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
             <Route path='*' element={<Error title="404" description="Страница не найдена"/>} />
           </Routes>

@@ -15,37 +15,34 @@ function Orders() {
         {name: 'Замена барьерного ограждения', price: '1 500 000', desc: 'lerlerlerle', days: 120, clicks: 300},
     ]);
 
-    
+
 
   return (
     <div style={{padding: '32px 32px'}}>
-        
+
         <Row >
             <Col span={16} style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Title>
                     Все заказы
                 </Title>
 
-                <Select 
-                    style={{width: 210}}
+                <Select
+                  defaultValue="default"
+                  style={{width: 210}}
                     options={[
                         {value: 'default', label: 'По умолчанию'}
                     ]}
-                >
-
-                </Select>   
+                />
             </Col>
-            
-        
-        </Row>  
+        </Row>
 
 
         {/* style={{width: '100%', display: 'flex', gap: 4, flexDirection: 'column'}}   */}
         <Row gutter={16}>
 
-            <Col span={16}   
+            <Col span={16}
             >
-                                                                        
+
                 {orders.map((order) => (
                     <Card
                         title={<Title level={3}>{order.name}</Title>}
@@ -64,7 +61,7 @@ function Orders() {
                 ))}
             </Col>
 
-            <Col span={8} style={{padding: '0px 24px 24px 24px', backgroundColor: 'white', height: 'fit-content', borderRadius: 5}}> 
+            <Col span={8} style={{padding: '0px 24px 24px 24px', backgroundColor: 'white', height: 'fit-content', borderRadius: 5}}>
 
                 <div style={{display: 'flex', justifyContent: 'flex-start'}}>
 

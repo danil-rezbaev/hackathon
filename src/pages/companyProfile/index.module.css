@@ -1,9 +1,7 @@
-
-
 .header {
+    text-align: left;
     background-color: white;
     padding: 0px 24px 16px 24px;
-    
 }
 
 .headerRow {
@@ -26,7 +24,7 @@
 .directorName {
     font-weight: 600;
     color: #096dd9;
-    font-size: 16;
+    font-size: 16px;
 }
 
 .companyStatus {
@@ -35,4 +33,12 @@
 
 .directorsTypography * {
     margin: 0;
+}
+
+
+.companyInfo {
+    display: grid;
+    grid-template-columns: 75px 1fr;
+    grid-gap: 20px;
+    align-items: center;
 }
