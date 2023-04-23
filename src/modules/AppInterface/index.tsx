@@ -22,8 +22,8 @@ const { Header, Content, Footer, Sider } = Layout;
 const items: MenuProps['items'] = [
   {icon: HomeOutlined, label: 'Все заказы', link: '/'},
   {icon: UnorderedListOutlined, label: 'Отклики', link: '/responses'},
-  {icon: ClockCircleOutlined, label: 'В работе', link: '/companyProfile'},
-  {icon: CheckCircleOutlined, label: 'Выполненные заказы', link: '/companyProfile'},
+  // {icon: ClockCircleOutlined, label: 'В работе', link: '/companyProfile'},
+   {icon: CheckCircleOutlined, label: 'Выполненные заказы', link: '/companyProfile'},
 ].map((item, index) => ({
   key: String(index + 1),
   icon: React.createElement(item.icon),
