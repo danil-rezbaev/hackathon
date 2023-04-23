@@ -27,12 +27,14 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
 
   const hiddenFileInput = React.useRef(null);
 
-  const handleFileUpload = event => {
+  const handleFileUpload = (event: any) => {
+  //@ts-ignore
     hiddenFileInput.current?.click();
   }
 
-  const handleFileInputChange = event => {
+  const handleFileInputChange = (event: any) => {
     console.log(event.target.files);
+  //@ts-ignore
     setUploadedFiles(prev => [...prev, event.target.files[0]]);
   }
 
@@ -80,11 +82,12 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
           <ul>
             {uploadedFiles.map(file => (
               <li>
-
-                <a>{file.name}</a>
+                <a>{
+                  //@ts-ignore
+                  file.name
+                }</a>
 
               </li>
-              
             ))}
           </ul>
           
