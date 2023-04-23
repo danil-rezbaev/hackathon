@@ -1,23 +1,42 @@
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, FC, useEffect} from 'react'
 import InstallationProgress from '../installationProgress'
 import { Button, Col, DatePicker, DatePickerProps, Divider, InputNumber, Modal, Row, Select, Space } from 'antd'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
-import jobsSlice, { addQuantity } from '../../../../store/slices/jobsSlice';
+import jobsSlice, { addQuantity, setCompletion } from '../../../../store/slices/jobsSlice';
 import { log } from 'console';
 import { NumberSchema } from 'yup';
 import { NumberLiteralType } from 'typescript';
 import { createEntry } from '../../../../store/slices/jobsHistorySlice';
+import { checkCompletion } from '../../../../utils/checkCompletion';
 
-const JobControlInfo = () => {
+interface JobControlInfoProps {
+    nextStep: any;
+}
+
+const JobControlInfo: FC<JobControlInfoProps> = ({nextStep}) => {
+
+    const {jobs, isCompleted} = useAppSelector(state => state.jobs);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(0);
     const [selectedNumber, setSelectedNumber] = useState(0);
     const [selectedDate, setSelectedDate] = useState('');
+    const [isJobsCompleted, setIsJobsCompleted] = useState(isCompleted);
 
-    const {jobs} = useAppSelector(state => state.jobs);
     const {entries} = useAppSelector(state => state.jobsHistory);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+      
+        if (checkCompletion(jobs)) {
+            dispatch(setCompletion())
+            setIsJobsCompleted(true);
+            console.log(checkCompletion(jobs))
+
+        }
+      
+    }, [jobs])
+    
 
     const handleChange = (value: number) => {
         setSelectedValue(value);
@@ -43,6 +62,7 @@ const JobControlInfo = () => {
         console.log(selectedValue, selectedNumber);
         dispatch(addQuantity([selectedValue, selectedNumber]))
         dispatch(createEntry({job: jobs[selectedValue],date: selectedDate, quanity: selectedNumber}))
+        
         setIsModalOpen(false);
 
       };
@@ -53,28 +73,15 @@ const JobControlInfo = () => {
    
     const tasks = [
         [
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
             jobs.slice(0, jobs.length / 2)
         ],
         [
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
-            // {title: 'Монтаж Г-образной опоры', maxQuantity: 1024, unit: 'кг'},
             jobs.slice(jobs.length / 2 + 1)
         ]
     ]
 
     const selectOptions = useMemo(() =>  [
         ...jobs.map((job, index) => ({value: index, label: job.title }))
-        // {value: 1, lable: 'Монтаж Г-образной опоры'}
     ], [jobs])
     
   return (
@@ -108,7 +115,11 @@ const JobControlInfo = () => {
         
         
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-            <Button onClick={showModal} type='primary'>Добавить прогресс</Button>
+            {isJobsCompleted 
+                ? <Button onClick={() => nextStep((prev : number)=> prev + 1)} type='primary'>Завершить этап</Button>
+            
+                : <Button onClick={showModal} type='primary'>Добавить прогресс</Button>
+            }
         </div>
 
         <Modal 

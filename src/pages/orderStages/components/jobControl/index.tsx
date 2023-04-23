@@ -1,9 +1,13 @@
 import { Button, Col, Menu, Row } from 'antd'
-import React, {useState} from 'react'
+import React, {FC, useState} from 'react'
 import JobControlInfo from '../jobControlInfo';
 import JobControlHistory from '../jobControlHistory';
 
-const JobControl = () => {
+interface JobControlProps {
+    nextStep: any;
+}
+
+const JobControl: FC<JobControlProps> = ({nextStep}) => {
 
     const [currentMenu, setCurrentMenu] = useState('info');
 
@@ -11,7 +15,7 @@ const JobControl = () => {
         {
             label: 'Информационная панель',
             key: 'info',
-            content: <JobControlInfo/>
+            content: <JobControlInfo nextStep={nextStep} />
         },
         {
             label: 'История',
@@ -26,15 +30,17 @@ const JobControl = () => {
 
   return (
     <div>
-        
         <Row>
             <Col span={24}>
-                <Button>
-                    Выгрузить excel файл
-                </Button>
+                <div style={{display: 'flex', justifyContent: 'start', height: 'fit-content'}}>
+                    <Button>
+                        Выгрузить excel файл
+                    </Button>
+                </div>
+                
 
                 <Menu selectedKeys={[currentMenu]} onClick={onClick} mode="horizontal" items={menuItems}/>
-                <div>
+                <div style={{minHeight: '270px'}}>
                     {menuItems[menuItems.findIndex((value) => 
                         value.key === currentMenu)].content}
                 </div>

@@ -1,6 +1,6 @@
-import { Button } from 'antd'
+import { Button, Input } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import css from './index.module.css'
 
 interface DocumentsSigningContentProps {
@@ -10,6 +10,7 @@ interface DocumentsSigningContentProps {
   commentAvailable?: boolean,
   downloadAvailable?: boolean,
   nextStep: any,
+  saveFiles?: boolean,
 }
 
 const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
@@ -18,11 +19,28 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
   files,
   commentAvailable = false,
   downloadAvailable = false,
-  nextStep
+  nextStep,
+  saveFiles = false,
 }) => {
+
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+
+  const hiddenFileInput = React.useRef(null);
+
+  const handleFileUpload = event => {
+    hiddenFileInput.current?.click();
+  }
+
+  const handleFileInputChange = event => {
+    console.log(event.target.files);
+    setUploadedFiles(prev => [...prev, event.target.files[0]]);
+  }
+
   return (
-    <div>
+    <div className={css.flex}>
       
+        <div style={{flexGrow: 1}}>
+
         <ul className={css.list}>
           {steps?.map(item => (
             <li>{item}</li>
@@ -30,18 +48,55 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
         </ul>
 
         <h3 style={{textAlign: 'start'}}>{downloadTitle}</h3>
-        <div>
-          {files.map(file => (
-            <a>{file}</a>
-          ))}
+        <div className={css.uploadedFiles} style={{justifyContent: 'flex-start', display: 'flex', marginBottom: 16}}>
+        <ul>
+            {files.map(file => (
+              <li>
+
+                <a>{file}</a>
+
+              </li>
+              
+            ))}
+          </ul>
         </div>
 
-        {downloadAvailable && <Button>Загрузить подписанные файлы</Button>}
-        {commentAvailable && <TextArea style={{marginBottom: 8}} placeholder='Комментарий к документам' rows={4}></TextArea>}
+          {downloadAvailable &&
+            (<div style={{justifyContent: 'flex-start', display: 'flex'}}>
+              <Button onClick={handleFileUpload}>Загрузить дополнительные файлы</Button>
+              <input 
+                ref={hiddenFileInput} 
+                type='file' 
+                onChange={handleFileInputChange}
+                style={{display: 'none'}}></input>
+            </div>
 
+            )
+          }
+          {commentAvailable && <TextArea style={{marginBottom: 8}} placeholder='Комментарий к документам' rows={4}></TextArea>}
+
+
+          <div className={css.uploadedFiles}>
+          <ul>
+            {uploadedFiles.map(file => (
+              <li>
+
+                <a>{file.name}</a>
+
+              </li>
+              
+            ))}
+          </ul>
+          
+        </div>
+        </div>
+  
 
         <div style={{display: 'flex',justifyContent: 'flex-end', flexGrow: 0}}>
-          <Button onClick={() => nextStep((prev: number) => prev + 1)}  type='primary'>Следующий этап</Button>
+          <Button onClick={() =>{
+            nextStep((prev: number) => prev + 1)
+            !saveFiles && setUploadedFiles([])
+          } }  type='primary'>Следующий этап</Button>
 
         </div>
 

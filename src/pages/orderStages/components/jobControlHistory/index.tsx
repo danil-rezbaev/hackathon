@@ -31,42 +31,6 @@ const JobControlHistory = () => {
             completionDate: entry.date,
             unitValue: entry.quanity,
         }))
-        // {
-        //     key: '1',
-        //     jobName: 'Монтаж Г-образной опоры',
-        //     completionDate: '30.04.2023',
-        //     unitValue: 102
-        // },
-        // {
-        //     key: '2',
-        //     jobName: 'Монтаж Г-образной опоры',
-        //     completionDate: '30.04.2023',
-        //     unitValue: 102
-        // },
-        // {
-        //     key: '3',
-        //     jobName: 'Монтаж Г-образной опоры',
-        //     completionDate: '30.04.2023',
-        //     unitValue: 102
-        // },
-        // {
-        //     key: '4',
-        //     jobName: 'Монтаж Г-образной опоры',
-        //     completionDate: '30.04.2023',
-        //     unitValue: 102
-        // },
-        // {
-        //     key: '5',
-        //     jobName: 'Монтаж Г-образной опоры',
-        //     completionDate: '30.04.2023',
-        //     unitValue: 102
-        // },
-        // {
-        //     key: '6',
-        //     jobName: 'Монтаж Г-образной опоры',
-        //     completionDate: '30.04.2023',
-        //     unitValue: 102
-        // },
     ]
 
   return (
