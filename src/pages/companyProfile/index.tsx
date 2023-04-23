@@ -9,7 +9,7 @@ import CompanyProfileInfo from "./components/CompanyProfileInfo";
 import CompanyProfileAdd from "./components/CompanyProfileAdd";
 
 function CompanyProfile() {
-  const { company } = useAppSelector(store => store.user)
+  const { company } = useAppSelector(store => store.user.user)
 
   // const [company, setCompany] = useState({
   //   fullName: 'Публичное акционерное общество',

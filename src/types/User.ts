@@ -1,6 +1,6 @@
 import { Company } from "./Company";
 
 export type User = {
-  email: string | null,
+  email: string,
   company: Company | null
 }

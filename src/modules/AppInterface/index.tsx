@@ -15,6 +15,7 @@ import collapsedLogo from './images/collapsedLogo.png';
 import { Link } from 'react-router-dom';
 import UserCard from "../UserCard";
 import CompanyCard from "../CompanyCard";
+import { useAppSelector } from "../../hooks/redux";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -43,6 +44,8 @@ const AppInterface: FC<InterfaceProps> = (props) => {
     status,
     children
   } = props
+
+  const {user} = useAppSelector(store => store)
 
   const [collapsed, setCollapsed] = useState(false);
   const contentMargin = collapsed ? '0' : "0"
@@ -121,7 +124,7 @@ const AppInterface: FC<InterfaceProps> = (props) => {
                 height: 48,
               }}
             />
-            <UserCard name="Danya"/>
+            <UserCard name={user.user.email} />
           </Space>
         </Header>
 

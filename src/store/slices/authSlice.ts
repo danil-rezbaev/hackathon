@@ -13,8 +13,8 @@ export type Auth = {
 }
 
 const initialState: Auth = {
-  status: true,
-  token: "null"
+  status: false,
+  token: null
 }
 
 const authSlice = createSlice({
@@ -26,6 +26,11 @@ const authSlice = createSlice({
       state.token = null
       window.localStorage.clear()
     },
+    updateAuth(state, action: PayloadAction<{accessToken: string}>) {
+      state.status = true
+      state.token = action.payload.accessToken
+      window.localStorage.setItem('token', action.payload.accessToken)
+    }
   },
   extraReducers: {
     [String(fetchAuth.pending)]: (state) => {
@@ -44,6 +49,6 @@ const authSlice = createSlice({
   }
 })
 
-export const { logout } = authSlice.actions
+export const { logout, updateAuth } = authSlice.actions
 
 export default authSlice.reducer

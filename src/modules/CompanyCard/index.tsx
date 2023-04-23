@@ -15,7 +15,7 @@ const CompanyCard: FC<CompanyCardProps> = (props) => {
     collapsed
   } = props
 
-  const { company } = useAppSelector(store => store.user)
+  const { company } = useAppSelector(store => store.user.user)
 
   const navigate = useNavigate()
 

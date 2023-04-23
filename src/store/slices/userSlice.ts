@@ -1,15 +1,26 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/User";
 import { Company } from "../../types/Company";
+import axios from "../../axios";
 
-// export const fetchAuthMe = createAsyncThunk('auth/fetchLogin', async (type: AuthMethods, params) => {
-//   const { data } = await axios.post(`/auth/${type}`, params)
-//   return data
-// })
+export const fetchAuthMe = createAsyncThunk('user/me', async () => {
+  const { data } = await axios.post(`/user/me`)
+  return data
+})
 
-const initialState: User = {
-  email: null,
-  company: null
+type Methods = 'pending' | 'rejected' | 'fulfilled'
+
+type Initial = {
+  status: Methods,
+  user: User
+}
+
+const initialState: Initial  = {
+  status: 'pending',
+  user: {
+    email: "Аноним",
+    company: null
+  }
 }
 
 const userSlice = createSlice({
@@ -17,23 +28,20 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     updateCompany(state, action: PayloadAction<Company>) {
-      state.company = action.payload
+      state.user.company = action.payload
     }
   },
   extraReducers: {
-    // [String(fetchAuth.pending)]: (state) => {
-    //   state.status = false
-    //   state.token = null
-    // },
-    // [String(fetchAuth.fulfilled)]: (state, action: PayloadAction<{accessToken: string}>) => {
-    //   const {accessToken} = action.payload
-    //   state.token = accessToken
-    //   state.status = true
-    // },
-    // [String(fetchAuth.rejected)]: (state) => {
-    //   state.status = false
-    //   state.token = null
-    // },
+    [String(fetchAuthMe.pending)]: (state, action: PayloadAction<User>) => {
+      state.status = "pending"
+    },
+    [String(fetchAuthMe.fulfilled)]: (state, action: PayloadAction<User>) => {
+      state.user.email = action.payload.email
+      state.user.company = action.payload.company
+    },
+    [String(fetchAuthMe.rejected)]: (state) => {
+      state.status = "rejected"
+    },
   }
 })
 

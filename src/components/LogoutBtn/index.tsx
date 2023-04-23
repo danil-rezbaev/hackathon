@@ -11,7 +11,7 @@ const LogoutBtn = () => {
   }
   return (
     <Button
-      onClick={handler}
+      onClick={() => handler()}
       type="text"
       danger
     >

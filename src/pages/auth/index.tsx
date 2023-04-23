@@ -1,13 +1,14 @@
 import { FC, useState } from 'react';
-import { App, Checkbox, Tabs, TabsProps, Typography } from "antd";
+import { App, Button, Checkbox, Input, Tabs, TabsProps, Typography } from "antd";
 import styles from './auth.module.css'
-import { Button, Input } from 'antd';
 import { CheckboxChangeEvent } from "antd/es/checkbox";
 import Link from "antd/lib/typography/Link";
 import { Form, Formik } from 'formik';
 import * as yup from "yup";
 import axios from "../../axios";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/redux";
+import { updateAuth } from "../../store/slices/authSlice";
 
 type AuthProps = unknown
 
@@ -49,12 +50,15 @@ const Auth: FC<AuthProps> = () => {
     password: ''
   }
 
+  const dispatch = useAppDispatch()
+
   const formSubmit = async (authData: typeof initialValue) => {
     try {
       const data = await axios.post(`/auth/${authMethod}`, { ...authData })
 
       if (String(data.status).startsWith('20')) {
         message.success('Успешный вход!');
+        dispatch(updateAuth(data.data))
         navigate('/')
       } else {
         message.error('Проверьте данные и повторите попытку!');

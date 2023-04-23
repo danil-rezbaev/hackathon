@@ -3,19 +3,21 @@ import './App.css';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import Auth from "./pages/auth";
 import { App as NotificationWrapper } from "antd"
-import { useAppSelector } from "./hooks/redux";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
 import Orders from './pages/orders';
 import CompanyProfile from './pages/companyProfile';
 import AppInterface from './modules/AppInterface';
 import NotFound from "./pages/notFound";
 import Responses from "./pages/responses";
 import OrderStages from './pages/orderStages';
+import { fetchAuthMe } from "./store/slices/userSlice";
 
 function App() {
-  const { auth } = useAppSelector(store => store)
+  const { user, auth } = useAppSelector(store => store)
   const {pathname} = useLocation()
   const location = pathname.split('/')[1]
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if(auth.status) {
@@ -28,6 +30,14 @@ function App() {
       }
     }
   }, [auth, location])
+
+  useEffect(() => {
+    if (auth.status === true && user.status === 'pending') {
+      if (!user.user.email || !user.user.company) {
+        dispatch(fetchAuthMe())
+      }
+    }
+  }, [user, auth])
 
   return (
     <div className="App">
