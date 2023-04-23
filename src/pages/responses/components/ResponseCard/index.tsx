@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styles from './ResponseCard.module.css'
 import { Col, Row, Tag } from "antd";
 import Link from "antd/es/typography/Link";
+import { useNavigate } from 'react-router-dom';
 
 export type ResponseCardProps = {
   status: boolean,
@@ -15,6 +16,8 @@ const ResponseCard: FC<ResponseCardProps> = (props) => {
     title,
     date
   } = props
+
+  const navigate = useNavigate();
 
   return (
     <div className={styles.root}>
@@ -31,7 +34,7 @@ const ResponseCard: FC<ResponseCardProps> = (props) => {
           </Tag>
         </Col>
         <Col span={13}>
-          <Link style={{fontSize: "16px"}}>
+          <Link onClick={() => navigate('/orderStages/1')} style={{fontSize: "16px"}}>
             {title}
           </Link>
         </Col>

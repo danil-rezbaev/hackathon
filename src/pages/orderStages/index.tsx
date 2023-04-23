@@ -1,10 +1,11 @@
-import { Steps } from 'antd'
+import { Breadcrumb, Steps } from 'antd'
 import React, {useEffect, useState} from 'react'
 import { DocumentsSigningWrapper } from './components/documentsSigningWrapper'
 import DocumentsSigningContent from './components/documentsSigningContent'
 import css from './index.module.css'
 import JobControl from './components/jobControl'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate, useNavigation } from 'react-router-dom'
+import Link from 'antd/es/typography/Link'
 
 function OrderStages() {
 
@@ -36,11 +37,11 @@ function OrderStages() {
                         steps={documentsAgreementSteps}
                         nextStep={setCurrentContent}
                     />} 
-                    term='21.01.2021'
+                    term='20.01.2023'
                     title='Согласование документов'
                  />,
                 <DocumentsSigningWrapper
-                    term='21.01.2021'
+                    term='21.01.2023'
                     title='Подписание документов'
                     children={
                         <DocumentsSigningContent
@@ -54,7 +55,7 @@ function OrderStages() {
                     }
                 />,
                 <DocumentsSigningWrapper
-                    term='21.01.2021'
+                    term='21.01.2023'
                     title='Проверка документов заказчиком'
                     isTermDead={false}
                     children={
@@ -160,7 +161,7 @@ function OrderStages() {
                         nextStep={setCurrentContent}
                     />
                 </DocumentsSigningWrapper>,
-                <Navigate to={'/'}/>
+                <Navigate to={'/orders'}/>
 
             ],
         },
@@ -172,9 +173,22 @@ function OrderStages() {
         setCurrentContent(0);
     }, [currentStep])
 
+    const navigate = useNavigate();
+
     
   return (
     <div style={{padding: '0px 32px 0px 32px'}}>
+        <Breadcrumb
+        style={{marginTop: 16}}
+            items={[
+                {
+                    title: <Link onClick={() => navigate('/responses')}>В работе</Link>
+                },
+                {
+                    title: 'Государственный контракт № 3/20/ОБ г. Сочи'
+                },
+            ]}
+        />
         <Steps current={currentStep} className={css.steps} items={stepsItems}></Steps>
         <div>{steps[currentStep].content[currentContent]}</div>
     </div>

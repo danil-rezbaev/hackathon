@@ -96,7 +96,9 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
   
 
         <div style={{display: 'flex',justifyContent: 'flex-end', flexGrow: 0}}>
-          <Button onClick={() =>{
+          <Button 
+          disabled={downloadAvailable && uploadedFiles.length === 0}
+          onClick={() =>{
             nextStep((prev: number) => prev + 1)
             !saveFiles && setUploadedFiles([])
           } }  type='primary'>Следующий этап</Button>

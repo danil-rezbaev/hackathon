@@ -39,7 +39,7 @@ function App() {
             <Route path='/auth' element={<Auth/>} />
             <Route path='/orders' element={<Orders/>} />
             <Route path='/responses' element={<Responses/>} />
-            <Route path='/orderStages' element={<OrderStages/>} />
+            <Route path='/orderStages/:id' element={<OrderStages/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />
             <Route path='*' element={<NotFound/>} />
           </Routes>
