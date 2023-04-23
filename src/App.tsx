@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import Main from "./pages/main";
 import Auth from "./pages/auth";
 import { App as NotificationWrapper } from "antd"
 import { useAppSelector } from "./hooks/redux";
@@ -35,9 +34,9 @@ function App() {
       <AppInterface status={auth.status}>
         <NotificationWrapper>
           <Routes>
-            <Route path='/' element={<Main/>} />
+            {/*<Route path='/' element={<Main/>} />*/}
+            <Route path='/' element={<Orders/>} />
             <Route path='/auth' element={<Auth/>} />
-            <Route path='/orders' element={<Orders/>} />
             <Route path='/responses' element={<Responses/>} />
             <Route path='/orderStages/:id' element={<OrderStages/>} />
             <Route path='/companyProfile' element={<CompanyProfile/>} />

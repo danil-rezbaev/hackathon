@@ -10,8 +10,8 @@ import {
 } from '@ant-design/icons';
 import { Layout, Menu, MenuProps, Space, theme } from 'antd';
 import Button from 'antd/lib/button';
-import { ReactComponent as FullLogo } from './images/fullLogo.svg';
-import { ReactComponent as CollapsedLogo } from './images/collapsedLogo.svg';
+import fullLogo from './images/fullLogo.png';
+import collapsedLogo from './images/collapsedLogo.png';
 import { Link } from 'react-router-dom';
 import UserCard from "../UserCard";
 import CompanyCard from "../CompanyCard";
@@ -19,7 +19,7 @@ import CompanyCard from "../CompanyCard";
 const { Header, Content, Footer, Sider } = Layout;
 
 const items: MenuProps['items'] = [
-  {icon: HomeOutlined, label: 'Все заказы', link: '/orders'},
+  {icon: HomeOutlined, label: 'Все заказы', link: '/'},
   {icon: UnorderedListOutlined, label: 'Отклики', link: '/responses'},
   {icon: ClockCircleOutlined, label: 'В работе', link: '/companyProfile'},
   {icon: CheckCircleOutlined, label: 'Выполненные заказы', link: '/companyProfile'},
@@ -27,7 +27,7 @@ const items: MenuProps['items'] = [
   key: String(index + 1),
   icon: React.createElement(item.icon),
   label: (
-    <Link to={item.link} style={{textAlign: "left"}}>
+    <Link to={item.link}>
       {item.label}
     </Link>
   )
@@ -67,12 +67,28 @@ const AppInterface: FC<InterfaceProps> = (props) => {
           maxWidth: '250px',
         }}
       >
-        <div style={{padding: '5px'}}>
-          {collapsed ? <CollapsedLogo/> : <FullLogo/>}
-        </div>
+        {
+          collapsed ? (
+            <div style={{padding: '15px'}}>
+              <img
+                src={collapsedLogo}
+                alt=""
+                style={{maxWidth: '50px', width: "100%"}}
+              />
+            </div>
+          ) : (
+            <div style={{padding: '15px'}}>
+              <img
+                src={fullLogo}
+                alt=""
+                style={{maxWidth: '200px', width: "100%"}}
+              />
+            </div>
+          )
+        }
 
         <CompanyCard collapsed={collapsed} />
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{marginTop: '25px'}} />
+        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{marginTop: '25px', textAlign: 'left'}} />
       </Sider>
 
       <Layout className="site-layout" style={{ marginLeft: contentMargin, display: "flex", flexDirection: "column", minHeight: "100vh" }}>

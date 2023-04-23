@@ -1,14 +1,13 @@
 import { Breadcrumb, Steps } from 'antd'
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { DocumentsSigningWrapper } from './components/documentsSigningWrapper'
 import DocumentsSigningContent from './components/documentsSigningContent'
 import css from './index.module.css'
 import JobControl from './components/jobControl'
-import { Navigate, useNavigate, useNavigation } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import Link from 'antd/es/typography/Link'
 
 function OrderStages() {
-
     const [currentStep, setCurrentStep] = useState(0);
     const [currentContent, setCurrentContent] = useState(0);
 
@@ -18,7 +17,7 @@ function OrderStages() {
     ]
 
     const documentsSigningSteps = [
-        'Ознакомтесь с текстом договора',
+        'Ознакомьтесь с текстом договора',
         'Проверьте данные',
         'Скачайте бланк договора. Распечатайте, подпишите ручкой или факсимильной подписью и загрузите скан-копии или фотографии данных документов, нажмите кнопку «Отправить на проверку».',
     ]
@@ -28,7 +27,7 @@ function OrderStages() {
             title: 'Подписание док-ов',
             content: [
                 <DocumentsSigningWrapper
-                    children={<DocumentsSigningContent 
+                    children={<DocumentsSigningContent
                         downloadTitle='Скачайте следующие файлы и проверьте корректность данных:'
                         files={[
                             'Договор субподряда.pdf'
@@ -36,7 +35,7 @@ function OrderStages() {
                         commentAvailable
                         steps={documentsAgreementSteps}
                         nextStep={setCurrentContent}
-                    />} 
+                    />}
                     term='20.01.2023'
                     title='Согласование документов'
                  />,
@@ -60,9 +59,8 @@ function OrderStages() {
                     isTermDead={false}
                     children={
                         <DocumentsSigningContent
-                            downloadTitle='Прикрипленные вами файлы'
+                            downloadTitle='Прикрепленные вами файлы'
                             files={[]}
-                            
                             nextStep={setCurrentStep}
                         />
                     }
@@ -95,7 +93,7 @@ function OrderStages() {
                     title='Загрузите следующие документы с подписью:'
                     term='30.04.2023'
                     isTermDead={true}
-                >   
+                >
                     <DocumentsSigningContent
                         downloadTitle=''
                         downloadAvailable
@@ -161,7 +159,7 @@ function OrderStages() {
                         nextStep={setCurrentContent}
                     />
                 </DocumentsSigningWrapper>,
-                <Navigate to={'/orders'}/>
+                <Navigate to={'/'}/>
 
             ],
         },
@@ -175,11 +173,11 @@ function OrderStages() {
 
     const navigate = useNavigate();
 
-    
+
   return (
     <div style={{padding: '0px 32px 0px 32px'}}>
         <Breadcrumb
-        style={{marginTop: 16}}
+            style={{marginTop: 16}}
             items={[
                 {
                     title: <Link onClick={() => navigate('/responses')}>В работе</Link>

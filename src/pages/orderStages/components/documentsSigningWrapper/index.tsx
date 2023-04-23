@@ -1,7 +1,6 @@
 import Title from 'antd/es/typography/Title'
-import React, {FC, ReactNode} from 'react'
+import React, { FC, ReactNode } from 'react'
 import css from './index.module.css'
-import Paragraph from 'antd/es/typography/Paragraph'
 
 interface DocumentsSigningWrapperProps {
     children: ReactNode,
@@ -13,20 +12,18 @@ interface DocumentsSigningWrapperProps {
 export const DocumentsSigningWrapper: FC<DocumentsSigningWrapperProps> = ({children, title, term, isTermDead = true}) => {
   return (
     <div className={css.wrapper}>
-        
-        <div className={css.wrapperHeader}>
-            <h1>{title}</h1>
-            <div className={isTermDead ? css.termBadgeRed : css.termBadgeBlue}>
-                {term && ( isTermDead 
-                ? `Сделайте до ${term}`
-                : `Будет готово до ${term}`)
-            }
-            </div>
-        </div>
-        
-            {children}
-
-
+      <div className={css.wrapperHeader}>
+          <Title>
+            {title}
+          </Title>
+          <div className={isTermDead ? css.termBadgeRed : css.termBadgeBlue}>
+              {term && ( isTermDead
+              ? `Сделайте до ${term}`
+              : `Будет готово до ${term}`)
+          }
+          </div>
+      </div>
+        {children}
     </div>
   )
 }

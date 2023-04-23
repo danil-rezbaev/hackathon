@@ -1,5 +1,5 @@
 import { Button, Col, Menu, Row } from 'antd'
-import React, {FC, useState} from 'react'
+import React, { FC, useState } from 'react'
 import JobControlInfo from '../jobControlInfo';
 import JobControlHistory from '../jobControlHistory';
 
@@ -8,7 +8,6 @@ interface JobControlProps {
 }
 
 const JobControl: FC<JobControlProps> = ({nextStep}) => {
-
     const [currentMenu, setCurrentMenu] = useState('info');
 
     const menuItems = [
@@ -23,7 +22,7 @@ const JobControl: FC<JobControlProps> = ({nextStep}) => {
             content: <JobControlHistory/>
         }
     ]
-    
+
     const onClick = (e: any) => {
         setCurrentMenu(e.key);
     }
@@ -32,17 +31,15 @@ const JobControl: FC<JobControlProps> = ({nextStep}) => {
     <div>
         <Row>
             <Col span={24}>
-                <div style={{display: 'flex', justifyContent: 'start', height: 'fit-content'}}>
+                <div style={{display: 'flex', justifyContent: 'start', height: 'fit-content', padding: '16px 0'}}>
                     <Button>
                         Выгрузить excel файл
                     </Button>
                 </div>
-                
 
                 <Menu selectedKeys={[currentMenu]} onClick={onClick} mode="horizontal" items={menuItems}/>
                 <div style={{minHeight: '270px'}}>
-                    {menuItems[menuItems.findIndex((value) => 
-                        value.key === currentMenu)].content}
+                    {menuItems[menuItems.findIndex((value) => value.key === currentMenu)].content}
                 </div>
             </Col>
         </Row>

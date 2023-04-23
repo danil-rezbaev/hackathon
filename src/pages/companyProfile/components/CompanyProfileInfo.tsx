@@ -5,7 +5,6 @@ import Title from "antd/es/typography/Title";
 import Paragraph from "antd/es/typography/Paragraph";
 import { Company } from "../../../types/Company";
 import Link from "antd/es/typography/Link";
-import Text from "antd/lib/typography/Text";
 
 export type CompanyProfileInfoProps = {
   company: Company
@@ -118,63 +117,68 @@ const CompanyProfileInfo: FC<CompanyProfileInfoProps> = (props) => {
           </div>
         </Col>
 
-        {
-          company.reliable ? (
+        { typeof company.reliable !== null ? (
             <Col span={9}>
               <div className={css.card}>
-                <Link
-                  style={{fontSize: '24px'}}
-                >
-                  Надежность
-                </Link>
-                <Tag
-                  style={{
-                    fontSize: 16,
-                    padding: '8px 10px'
-                  }}
-                  color={company.reliable ? 'success' : 'error'}
-                >
-                  {company.reliable ? 'Надежная' : 'Ненадежная'}
-                </Tag>
+                <Space>
+                  <Link
+                    style={{fontSize: '24px'}}
+                  >
+                    Надежность:
+                  </Link>
+                  <Tag
+                    style={{
+                      fontSize: 16,
+                      padding: '8px 10px'
+                    }}
+                    color={company.reliable ? 'success' : 'error'}
+                  >
+                    {company.reliable ? 'Высокая' : 'Низкая'}
+                  </Tag>
+                </Space>
+
+                <br/>
 
                 <Space
                   direction="horizontal"
-                  style={{
-                    marginTop: '24px'
-                  }}
+                  size={[8, 16]}
                 >
-                  {
-                    company.courtCases ? (
+                  { company.courtCases ? (
                       <div>
-                        <Text>Судебные дела</Text>
-                        <Paragraph>{company.courtCases}</Paragraph>
+                        <Title level={5}>Судебные дела</Title>
+                        <Link style={{
+                          margin: 0,
+                          fontSize: '24px'
+                        }}
+                        >{ company.courtCases }</Link>
                       </div>
                     ) : null
                   }
 
-                  {
-                    company.debt ? (
+                  { company.debt ? (
                       <div>
-                        <Text>Долги</Text>
-                        <Paragraph>{company.debt}</Paragraph>
+                        <Title level={5}>Долги</Title>
+                        <Link style={{
+                          margin: 0,
+                          fontSize: '24px'
+                        }}
+                        >{ company.debt }</Link>
                       </div>
-                    ) : null
-                  }
+                    ) : null }
                 </Space>
 
                 <Button
-                  type="text"
                   style={{
                     marginTop: '24px'
                   }}
+                  size="large"
                   block
                 >
                   Получить подробный отчет
                 </Button>
               </div>
             </Col>
-          ) : null
-        }
+          ) : null }
       </Row>
     </div>
   );

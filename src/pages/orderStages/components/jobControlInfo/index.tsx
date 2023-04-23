@@ -1,11 +1,8 @@
-import React, {useState, useMemo, FC, useEffect} from 'react'
+import React, { FC, useEffect, useMemo, useState } from 'react'
 import InstallationProgress from '../installationProgress'
 import { Button, Col, DatePicker, DatePickerProps, Divider, InputNumber, Modal, Row, Select, Space } from 'antd'
 import { useAppDispatch, useAppSelector } from '../../../../hooks/redux';
-import jobsSlice, { addQuantity, setCompletion } from '../../../../store/slices/jobsSlice';
-import { log } from 'console';
-import { NumberSchema } from 'yup';
-import { NumberLiteralType } from 'typescript';
+import { addQuantity, setCompletion } from '../../../../store/slices/jobsSlice';
 import { createEntry } from '../../../../store/slices/jobsHistorySlice';
 import { checkCompletion } from '../../../../utils/checkCompletion';
 
@@ -27,16 +24,16 @@ const JobControlInfo: FC<JobControlInfoProps> = ({nextStep}) => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-      
+
         if (checkCompletion(jobs)) {
             dispatch(setCompletion())
             setIsJobsCompleted(true);
             console.log(checkCompletion(jobs))
 
         }
-      
+
     }, [jobs])
-    
+
 
     const handleChange = (value: number) => {
         setSelectedValue(value);
@@ -56,21 +53,21 @@ const JobControlInfo: FC<JobControlInfoProps> = ({nextStep}) => {
     const showModal = () => {
         setIsModalOpen(true);
       };
-    
+
       const handleOk = () => {
 
         console.log(selectedValue, selectedNumber);
         dispatch(addQuantity([selectedValue, selectedNumber]))
         dispatch(createEntry({job: jobs[selectedValue],date: selectedDate, quanity: selectedNumber}))
-        
+
         setIsModalOpen(false);
 
       };
-    
+
       const handleCancel = () => {
         setIsModalOpen(false);
       };
-   
+
     const tasks = [
         [
             jobs.slice(0, jobs.length / 2)
@@ -83,15 +80,11 @@ const JobControlInfo: FC<JobControlInfoProps> = ({nextStep}) => {
     const selectOptions = useMemo(() =>  [
         ...jobs.map((job, index) => ({value: index, label: job.title }))
     ], [jobs])
-    
+
   return (
     <div >
-
-
         <Row style={{ overflow: 'auto', height: '250px'}} gutter={8}>
-
             <Col span={12}>
-
                 {tasks[0][0].map(item =>(
                     <InstallationProgress
                     title={item.title}
@@ -99,8 +92,6 @@ const JobControlInfo: FC<JobControlInfoProps> = ({nextStep}) => {
                     unit={item.unit}
                     />
                 ))}
-                
-
             </Col>
             <Col span={12}>
             {tasks[1][0].map(item =>(
@@ -112,17 +103,15 @@ const JobControlInfo: FC<JobControlInfoProps> = ({nextStep}) => {
                 ))}
             </Col>
         </Row>
-        
-        
-        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-            {isJobsCompleted 
-                ? <Button onClick={() => nextStep((prev : number)=> prev + 1)} type='primary'>Завершить этап</Button>
-            
-                : <Button onClick={showModal} type='primary'>Добавить прогресс</Button>
+
+        <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
+            {isJobsCompleted
+                ? <Button onClick={() => nextStep((prev : number)=> prev + 1)} type='primary' size="large">Завершить этап</Button>
+                : <Button onClick={showModal} type='primary' size="large">Добавить прогресс</Button>
             }
         </div>
 
-        <Modal 
+        <Modal
             title='Добавление прогресса'
             open={isModalOpen}
             onOk={handleOk}

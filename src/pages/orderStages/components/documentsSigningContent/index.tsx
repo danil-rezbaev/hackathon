@@ -1,6 +1,8 @@
-import { Button, Input } from 'antd'
+import { UploadOutlined } from '@ant-design/icons'
+import { App, Button, Upload } from 'antd'
 import TextArea from 'antd/es/input/TextArea'
-import React, {FC, useState} from 'react'
+import { UploadProps } from 'antd/lib/upload/interface'
+import React, { FC } from 'react'
 import css from './index.module.css'
 
 interface DocumentsSigningContentProps {
@@ -23,24 +25,42 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
   saveFiles = false,
 }) => {
 
-  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const { message } = App.useApp();
 
-  const hiddenFileInput = React.useRef(null);
-
-  const handleFileUpload = (event: any) => {
-  //@ts-ignore
-    hiddenFileInput.current?.click();
-  }
-
-  const handleFileInputChange = (event: any) => {
-    console.log(event.target.files);
-  //@ts-ignore
-    setUploadedFiles(prev => [...prev, event.target.files[0]]);
-  }
+  const filesProps: UploadProps = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    maxCount: 5,
+    defaultFileList: [
+      {
+        uid: '1',
+        name: 'Договор субподряда.pdf',
+        status: 'success',
+        url: 'https://drive.google.com/uc?id=1u0xBRMdZF9obVHI6KDfZoCqhgq2IbMin&authuser=0&export=download',
+        percent: 100,
+      },
+    ],
+    beforeUpload() {
+      return false
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
 
   return (
     <div className={css.flex}>
-      
+
         <div style={{flexGrow: 1}}>
 
         <ul className={css.list}>
@@ -50,61 +70,31 @@ const DocumentsSigningContent: FC<DocumentsSigningContentProps> = ({
         </ul>
 
         <h3 style={{textAlign: 'start'}}>{downloadTitle}</h3>
-        <div className={css.uploadedFiles} style={{justifyContent: 'flex-start', display: 'flex', marginBottom: 16}}>
-        <ul>
-            {files.map(file => (
-              <li>
+          <div style={{
+            textAlign: "left",
+            margin: "16px 0",
+            maxWidth: '500px'
+          }}>
 
-                <a>{file}</a>
+            <Upload {...filesProps}>
+              <Button icon={<UploadOutlined />}>Загрузить дополнительные файлы</Button>
+            </Upload>
+          </div>
 
-              </li>
-              
-            ))}
-          </ul>
-        </div>
-
-          {downloadAvailable &&
-            (<div style={{justifyContent: 'flex-start', display: 'flex'}}>
-              <Button onClick={handleFileUpload}>Загрузить дополнительные файлы</Button>
-              <input 
-                ref={hiddenFileInput} 
-                type='file' 
-                onChange={handleFileInputChange}
-                style={{display: 'none'}}></input>
-            </div>
-
-            )
-          }
           {commentAvailable && <TextArea style={{marginBottom: 8}} placeholder='Комментарий к документам' rows={4}></TextArea>}
-
-
-          <div className={css.uploadedFiles}>
-          <ul>
-            {uploadedFiles.map(file => (
-              <li>
-                <a>{
-                  //@ts-ignore
-                  file.name
-                }</a>
-
-              </li>
-            ))}
-          </ul>
-          
-        </div>
-        </div>
-  
-
-        <div style={{display: 'flex',justifyContent: 'flex-end', flexGrow: 0}}>
-          <Button 
-          disabled={downloadAvailable && uploadedFiles.length === 0}
-          onClick={() =>{
-            nextStep((prev: number) => prev + 1)
-            !saveFiles && setUploadedFiles([])
-          } }  type='primary'>Следующий этап</Button>
-
         </div>
 
+        <div style={{display: 'flex',justifyContent: 'flex-end', flexGrow: 0, marginTop: "24px"}}>
+          <Button
+            type='primary'
+            size="large"
+            onClick={() =>{
+              nextStep((prev: number) => prev + 1)
+            }}
+          >
+            Следующий этап
+          </Button>
+        </div>
     </div>
   )
 }
