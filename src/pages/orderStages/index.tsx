@@ -4,6 +4,7 @@ import { DocumentsSigningWrapper } from './components/documentsSigningWrapper'
 import DocumentsSigningContent from './components/documentsSigningContent'
 import css from './index.module.css'
 import JobControl from './components/jobControl'
+import { Navigate } from 'react-router-dom'
 
 function OrderStages() {
 
@@ -28,7 +29,9 @@ function OrderStages() {
                 <DocumentsSigningWrapper
                     children={<DocumentsSigningContent 
                         downloadTitle='Скачайте следующие файлы и проверьте корректность данных:'
-                        files={[]}
+                        files={[
+                            'Договор субподряда.pdf'
+                        ]}
                         commentAvailable
                         steps={documentsAgreementSteps}
                         nextStep={setCurrentContent}
@@ -43,8 +46,9 @@ function OrderStages() {
                         <DocumentsSigningContent
                             downloadAvailable
                             downloadTitle='Скачайте следующие файлы, подпишите и загрузите в поле ниже'
-                            files={[]}
+                            files={['Договор субподряда.pdf']}
                             steps={documentsSigningSteps}
+                            saveFiles
                             nextStep={setCurrentContent}
                         />
                     }
@@ -57,6 +61,7 @@ function OrderStages() {
                         <DocumentsSigningContent
                             downloadTitle='Прикрипленные вами файлы'
                             files={[]}
+                            
                             nextStep={setCurrentStep}
                         />
                     }
@@ -71,7 +76,10 @@ function OrderStages() {
                     children={
                         <DocumentsSigningContent
                             downloadTitle='Скачайте следующие файлы'
-                            files={[]}
+                            files={[
+                                'Общий журнал работ.pdf',
+                                'Журнал входного контроля.pdf',
+                            ]}
                             nextStep={setCurrentContent}
                         />
                     }
@@ -80,17 +88,81 @@ function OrderStages() {
                 <DocumentsSigningWrapper
                     title='Учет выполнения работ'
                 >
-                    <JobControl/>
+                    <JobControl nextStep={setCurrentContent} />
+                </DocumentsSigningWrapper>,
+                <DocumentsSigningWrapper
+                    title='Загрузите следующие документы с подписью:'
+                    term='30.04.2023'
+                    isTermDead={true}
+                >   
+                    <DocumentsSigningContent
+                        downloadTitle=''
+                        downloadAvailable
+                        files={[
+                        ]}
+                        steps={[
+                            'Общий журнал работ',
+                            'Журнал входного контроля',
+                            'Файл с фотоотчетом выполненного проекта',
+                        ]}
+                        nextStep={setCurrentStep}
+                    />
                 </DocumentsSigningWrapper>
             ],
         },
         {
             title: 'Лаб. испытания',
-            content: '',
+            content: [
+                <DocumentsSigningWrapper
+                    title='Загрузите протокол о выполненных испытаний независимой лаборатории'
+                    isTermDead
+                    term='30.04.2023'
+                >
+                    <DocumentsSigningContent
+                        downloadTitle=''
+                        files={[]}
+                        nextStep={setCurrentContent}
+                        downloadAvailable
+
+                    />
+                </DocumentsSigningWrapper>,
+                <DocumentsSigningWrapper
+                    title='Ожидайте проверки всех документов и полной сдачи проекта'
+                >
+                    <DocumentsSigningContent
+                        downloadTitle='Ожидайте, пожалуйста, мы вас оповестим, это не займет больше 14 дней'
+                        files={[]}
+                        nextStep={setCurrentStep}
+                    />
+                </DocumentsSigningWrapper>,
+            ],
         },
         {
             title: 'Взаиморасчеты',
-            content: '',
+            content: [
+                <DocumentsSigningWrapper
+                    title='Выставите нам счет'
+                >
+                    <DocumentsSigningContent
+                        downloadTitle='Прикрепите файл счета'
+                        files={[]}
+                        downloadAvailable
+                        nextStep={setCurrentContent}
+                    />
+                </DocumentsSigningWrapper>,
+                <DocumentsSigningWrapper
+                    title='Скачайте акт и отправьте нам файл с вашей подписью'
+                >
+                    <DocumentsSigningContent
+                        downloadTitle=''
+                        files={['Акт №13.pdf']}
+                        downloadAvailable
+                        nextStep={setCurrentContent}
+                    />
+                </DocumentsSigningWrapper>,
+                <Navigate to={'/'}/>
+
+            ],
         },
     ]
 

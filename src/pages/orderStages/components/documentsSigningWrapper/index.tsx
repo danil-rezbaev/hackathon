@@ -18,15 +18,14 @@ export const DocumentsSigningWrapper: FC<DocumentsSigningWrapperProps> = ({child
             <h1>{title}</h1>
             <div className={isTermDead ? css.termBadgeRed : css.termBadgeBlue}>
                 {term && ( isTermDead 
-                ? `Скачайте до ${term}`
+                ? `Сделайте до ${term}`
                 : `Будет готово до ${term}`)
             }
             </div>
         </div>
-
-        <div>
+        
             {children}
-        </div>
+
 
     </div>
   )
