@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react'
 import css from './index.module.css'
-import { Slider } from 'antd'
+import { Progress, Slider } from 'antd'
 import { useAppSelector } from '../../../../hooks/redux';
 
 interface InstallationProgressProps {
@@ -13,15 +13,15 @@ const InstallationProgress: FC<InstallationProgressProps> = ({title, maxQuantity
   
     const [currentQuantity, setCurrentQuantity] = useState(0);
     const job = useAppSelector(state => state.jobs.jobs.find(job => job.title == title))
-  
     return (
     <div className={css.progress}>
         <h5 className={css.jobTitle}>{title}</h5>
-        <Slider
+
+        <Progress
             style={{width: '30%'}}
-            min={0}
-            max={job?.maxQuantity}
-            value={job?.currentQuantity}
+            percent={job && ((job?.currentQuantity / job?.maxQuantity) * 100)}
+            showInfo={false}
+            
         />
 
         <span>
